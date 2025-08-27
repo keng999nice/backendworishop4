@@ -84,4 +84,26 @@ public class AuthController {
         UserResponse userResponse = userService.convertToUserResponse(user);
         return ResponseEntity.ok(userResponse);
     }
+    
+    @Operation(summary = "Add points to current user account", security = @SecurityRequirement(name = "bearerAuth"))
+    @PostMapping("/add-points")
+    public ResponseEntity<?> addPoints(@RequestParam Double amount) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        
+        User user = userService.findByEmail(userDetails.getUsername());
+        if (user == null) {
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "User not found");
+            return ResponseEntity.notFound().build();
+        }
+        
+        user.setPoints(user.getPoints() + amount);
+        userService.saveUser(user);
+        
+        Map<String, Object> response = new HashMap<>();
+        response.put("message", "Points added successfully");
+        response.put("newBalance", user.getPoints());
+        return ResponseEntity.ok(response);
+    }
 }

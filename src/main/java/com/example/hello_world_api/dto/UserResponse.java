@@ -26,6 +26,12 @@ public class UserResponse {
     @Schema(description = "User birthday", example = "1990-01-01")
     private LocalDate birthday;
     
+    @Schema(description = "LBK Member ID", example = "LBK001234")
+    private String memberId;
+    
+    @Schema(description = "User points balance", example = "15420.0")
+    private Double points;
+    
     @Schema(description = "Account creation date", example = "2023-01-01T10:00:00")
     private LocalDateTime createdAt;
     
@@ -35,13 +41,15 @@ public class UserResponse {
     // Constructors
     public UserResponse() {}
     
-    public UserResponse(Long id, String email, String firstname, String lastname, String phoneNumber, LocalDate birthday, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public UserResponse(Long id, String email, String firstname, String lastname, String phoneNumber, LocalDate birthday, String memberId, Double points, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.email = email;
         this.firstname = firstname;
         this.lastname = lastname;
         this.phoneNumber = phoneNumber;
         this.birthday = birthday;
+        this.memberId = memberId;
+        this.points = points;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
@@ -109,5 +117,21 @@ public class UserResponse {
     
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+    
+    public String getMemberId() {
+        return memberId;
+    }
+    
+    public void setMemberId(String memberId) {
+        this.memberId = memberId;
+    }
+    
+    public Double getPoints() {
+        return points;
+    }
+    
+    public void setPoints(Double points) {
+        this.points = points;
     }
 }

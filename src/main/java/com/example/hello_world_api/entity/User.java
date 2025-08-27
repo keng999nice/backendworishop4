@@ -35,6 +35,12 @@ public class User {
     
     private LocalDate birthday;
     
+    @Column(unique = true)
+    private String memberId; // LBK Member ID
+    
+    @Column(nullable = true)
+    private Double points = 0.0; // User points balance
+    
     @Column(updatable = false)
     private LocalDateTime createdAt;
     
@@ -49,6 +55,7 @@ public class User {
         this.lastname = lastname;
         this.phoneNumber = phoneNumber;
         this.birthday = birthday;
+        this.points = 0.0; // Initialize with 0 points
     }
     
     @PrePersist
@@ -133,5 +140,21 @@ public class User {
     
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+    
+    public String getMemberId() {
+        return memberId;
+    }
+    
+    public void setMemberId(String memberId) {
+        this.memberId = memberId;
+    }
+    
+    public Double getPoints() {
+        return points;
+    }
+    
+    public void setPoints(Double points) {
+        this.points = points;
     }
 }
